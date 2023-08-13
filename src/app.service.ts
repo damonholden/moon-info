@@ -22,8 +22,10 @@ export class AppService {
     const location = query.location;
     const key = this.configService.get<string>('Q_WEATHER_API_KEY');
     const lang = query.lang;
-    const date = query.date;
+    const date = query.date.replace(/-/g, '');
     const url = `https://devapi.qweather.com/v7/astronomy/moon?location=${location}&date=${date}&lang=${lang}&key=${key}`;
+    console.log(url);
+
     const cacheKey = `${location}-${date}-${lang}`;
 
     const cachedData = await this.cacheManager.get<JSON>(cacheKey);
