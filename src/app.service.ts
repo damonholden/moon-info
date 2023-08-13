@@ -5,6 +5,7 @@ import { Observable, firstValueFrom, catchError } from 'rxjs';
 import { AxiosResponse, AxiosError } from 'axios';
 import { Cache } from 'cache-manager';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
+import { MoonQuery } from './app.controller';
 
 const SECONDSINADAY = 86400;
 
@@ -15,13 +16,14 @@ export class AppService {
     private readonly httpService: HttpService,
     @Inject(CACHE_MANAGER) private cacheManager: Cache,
   ) {}
-  async getMoonData(): Promise<Observable<AxiosResponse<JSON>> | JSON> {
-    const location = 'BA333';
+  async getMoonData(
+    query: MoonQuery,
+  ): Promise<Observable<AxiosResponse<JSON>> | JSON> {
+    const location = query.location;
     const key = this.configService.get<string>('Q_WEATHER_API_KEY');
-    const lang = 'en';
-    const date = '20230813';
+    const lang = query.lang;
+    const date = query.date;
     const url = `https://devapi.qweather.com/v7/astronomy/moon?location=${location}&date=${date}&lang=${lang}&key=${key}`;
-
     const cacheKey = `${location}-${date}-${lang}`;
 
     const cachedData = await this.cacheManager.get<JSON>(cacheKey);
