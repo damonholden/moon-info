@@ -3,9 +3,10 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
 import { HttpModule } from '@nestjs/axios';
+import { CacheModule } from '@nestjs/cache-manager';
 
 @Module({
-  imports: [ConfigModule.forRoot(), HttpModule],
+  imports: [ConfigModule.forRoot(), HttpModule, CacheModule.register()],
   controllers: [AppController],
   providers: [AppService],
 })

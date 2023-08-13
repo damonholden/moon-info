@@ -1,31 +1,46 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Inject } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { HttpService } from '@nestjs/axios';
 import { Observable, firstValueFrom, catchError } from 'rxjs';
 import { AxiosResponse, AxiosError } from 'axios';
+import { Cache } from 'cache-manager';
+import { CACHE_MANAGER } from '@nestjs/cache-manager';
+
+const SECONDSINADAY = 86400;
 
 @Injectable()
 export class AppService {
   constructor(
     private readonly configService: ConfigService,
     private readonly httpService: HttpService,
+    @Inject(CACHE_MANAGER) private cacheManager: Cache,
   ) {}
-  async getMoonData(): Promise<Observable<AxiosResponse<JSON>>> {
+  async getMoonData(): Promise<Observable<AxiosResponse<JSON>> | JSON> {
     const location = 'BA333';
     const key = this.configService.get<string>('Q_WEATHER_API_KEY');
     const lang = 'en';
     const date = '20230813';
     const url = `https://devapi.qweather.com/v7/astronomy/moon?location=${location}&date=${date}&lang=${lang}&key=${key}`;
 
-    const { data } = await firstValueFrom(
-      this.httpService.get(url).pipe(
-        catchError((error: AxiosError) => {
-          console.log(error);
-          throw new Error(error.message);
-        }),
-      ),
-    );
+    const cacheKey = `${location}-${date}-${lang}`;
 
-    return data;
+    const cachedData = await this.cacheManager.get<JSON>(cacheKey);
+
+    if (cachedData === undefined) {
+      const { data } = await firstValueFrom(
+        this.httpService.get(url).pipe(
+          catchError((error: AxiosError) => {
+            console.log(error);
+            throw new Error(error.message);
+          }),
+        ),
+      );
+
+      await this.cacheManager.set(cacheKey, data, SECONDSINADAY);
+
+      return data;
+    }
+
+    return cachedData;
   }
 }
