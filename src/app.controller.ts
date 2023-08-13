@@ -1,4 +1,4 @@
-import { Controller, Get, Query } from '@nestjs/common';
+import { Controller, Get } from '@nestjs/common';
 import { AppService } from './app.service';
 
 export interface MoonQuery {
@@ -10,7 +10,7 @@ export interface MoonQuery {
 export class AppController {
   constructor(private readonly appService: AppService) {}
   @Get('moon')
-  async getMoon(@Query() query: MoonQuery) {
-    return await this.appService.getMoonData(query);
+  async getMoon() {
+    return await this.appService.getRapidApiMoonData();
   }
 }

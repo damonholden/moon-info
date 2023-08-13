@@ -7,7 +7,7 @@ import { Cache } from 'cache-manager';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import { MoonQuery } from './app.controller';
 
-const SECONDSINADAY = 86400;
+const SECONDS_IN_A_DAY = 86400;
 
 @Injectable()
 export class AppService {
@@ -16,7 +16,41 @@ export class AppService {
     private readonly httpService: HttpService,
     @Inject(CACHE_MANAGER) private cacheManager: Cache,
   ) {}
-  async getMoonData(
+
+  async getRapidApiMoonData(): Promise<Observable<AxiosResponse<JSON>> | JSON> {
+    const cacheKey = String(new Date().getDate());
+
+    const cachedData = await this.cacheManager.get<JSON>(cacheKey);
+
+    if (cachedData === undefined) {
+      console.log('Using cache for RapidAPI moon data.');
+      const { data } = await firstValueFrom(
+        this.httpService
+          .get('https://moon-phase.p.rapidapi.com/basic', {
+            headers: {
+              'X-RapidAPI-Key': this.configService.get<string>('RAPID_API_KEY'),
+              'X-RapidAPI-Host': 'moon-phase.p.rapidapi.com',
+            },
+          })
+          .pipe(
+            catchError((error: AxiosError) => {
+              console.log(error);
+              throw new Error(error.message);
+            }),
+          ),
+      );
+
+      await this.cacheManager.set(cacheKey, data, SECONDS_IN_A_DAY);
+
+      return data;
+    }
+
+    console.log('Using cache for RapidAPI moon data.');
+
+    return cachedData;
+  }
+
+  async getQDevMoonData(
     query: MoonQuery,
   ): Promise<Observable<AxiosResponse<JSON>> | JSON> {
     const location = query.location;
@@ -40,7 +74,7 @@ export class AppService {
         ),
       );
 
-      await this.cacheManager.set(cacheKey, data, SECONDSINADAY);
+      await this.cacheManager.set(cacheKey, data, SECONDS_IN_A_DAY);
 
       return data;
     }
