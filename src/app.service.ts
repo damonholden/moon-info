@@ -7,7 +7,7 @@ import { Cache } from 'cache-manager';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import { MoonQuery } from './app.controller';
 
-const SECONDS_IN_A_DAY = 86400;
+const MILLISECONDS_IN_A_DAY = 86400000;
 
 @Injectable()
 export class AppService {
@@ -23,7 +23,7 @@ export class AppService {
     const cachedData = await this.cacheManager.get<JSON>(cacheKey);
 
     if (cachedData === undefined) {
-      console.log('Using cache for RapidAPI moon data.');
+      console.log('No cache. Fetching new RapidAPI moon data.');
       const { data } = await firstValueFrom(
         this.httpService
           .get('https://moon-phase.p.rapidapi.com/basic', {
@@ -40,7 +40,7 @@ export class AppService {
           ),
       );
 
-      await this.cacheManager.set(cacheKey, data, SECONDS_IN_A_DAY);
+      await this.cacheManager.set(cacheKey, data, MILLISECONDS_IN_A_DAY);
 
       return data;
     }
@@ -74,7 +74,7 @@ export class AppService {
         ),
       );
 
-      await this.cacheManager.set(cacheKey, data, SECONDS_IN_A_DAY);
+      await this.cacheManager.set(cacheKey, data, MILLISECONDS_IN_A_DAY);
 
       return data;
     }
