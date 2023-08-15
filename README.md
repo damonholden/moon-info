@@ -8,7 +8,12 @@ Built starting from the [Nest](https://github.com/nestjs/nest) framework TypeScr
 
 ## API used
 
-The moon data for this app was sourced from [dev.qweather's moon-and-moon-phase resource.](https://dev.qweather.com/en/docs/api/astronomy/moon-and-moon-phase/)
+The moon data for this app was sourced from [The Moon Phase API from RapidAPI's
+library.](https://rapidapi.com/MoonAPIcom/api/moon-phase)
+
+## Live Deployment
+
+The latest main branch of this application is deployed by [Railway](https://railway.app) to [https://moon-info-production.up.railway.app/](https://moon-info-production.up.railway.app/).
 
 ## Installation
 
