@@ -46,3 +46,7 @@ $ npm run test:e2e
 # test coverage
 $ npm run test:cov
 ```
+
+## Favicons
+
+Favicons were generated using [Favicon.io](https://favicon.io/).
