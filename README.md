@@ -46,3 +46,14 @@ $ npm run test:e2e
 # test coverage
 $ npm run test:cov
 ```
+
+## Favicons
+
+Favicons were generated using [Favicon.io](https://favicon.io/).
+
+## PWA
+
+This app is a fully developed
+[PWA](https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps). It was
+developed following the documentation on
+[pwabuilder](https://docs.pwabuilder.com/#/) (founded by Microsoft).
