@@ -1,5 +1,102 @@
+:root {
+  --main-background-color: #191970;
+  --main-text-color: #fff;
+  --moon-color: yellow;
+  --moon-shadow-color: rgb(5, 2, 48);
+  --moon-dimensions: 100px;
+  --half-moon-dimensions: calc(var(--moon-dimensions) / 2 * -1);
+  --quarter-moon-dimensions: calc(var(--moon-dimensions) / 4 * -1);
+}
+
 body {
-	background-color: #191970;
-	color: white;
-	font-family: monospace;
+  background-color: var(--main-background-color);
+  color: var(--main-text-color);
+  font-family: monospace;
+}
+
+.moon {
+  position: relative;
+  border-radius: 50%;
+  width: var(--moon-dimensions);
+  height: var(--moon-dimensions);
+  background-color: var(--moon-color);
+  overflow: hidden;
+
+  &.waning-gibbous {
+    background-color: var(--moon-shadow-color);
+
+    &::after {
+      content: ' ';
+      position: absolute;
+      border-radius: 50px;
+      height: var(--moon-dimensions);
+      width: var(--moon-dimensions);
+      left: var(--quarter-moon-dimensions);
+      background-color: var(--moon-color);
+    }
+  }
+
+  &.third-quarter {
+    background-color: var(--moon-color);
+
+    &::after {
+      content: ' ';
+      position: absolute;
+      height: var(--moon-dimensions);
+      width: var(--moon-dimensions);
+      right: var(--half-moon-dimensions);
+      background-color: var(--moon-shadow-color);
+    }
+  }
+
+  &.waning-crescent {
+    background-color: var(--moon-color);
+
+    &::after {
+      content: ' ';
+      position: absolute;
+      border-radius: 50px;
+      height: var(--moon-dimensions);
+      width: var(--moon-dimensions);
+      right: var(--quarter-moon-dimensions);
+      background-color: var(--moon-shadow-color);
+    }
+  }
+
+  &.new {
+    background-color: var(--moon-shadow-color);
+  }
+
+  &.waxing-crescent::after {
+    content: ' ';
+    position: absolute;
+    border-radius: 50px;
+    height: var(--moon-dimensions);
+    width: var(--moon-dimensions);
+    left: var(--quarter-moon-dimensions);
+    background-color: var(--moon-shadow-color);
+  }
+
+  &.first-quarter::after {
+    content: ' ';
+    position: absolute;
+    height: var(--moon-dimensions);
+    width: var(--moon-dimensions);
+    left: var(--half-moon-dimensions);
+    background-color: var(--moon-shadow-color);
+  }
+
+  &.waxing-gibbous {
+    background-color: var(--moon-shadow-color);
+
+    &::after {
+      content: ' ';
+      position: absolute;
+      border-radius: 50px;
+      height: var(--moon-dimensions);
+      width: var(--moon-dimensions);
+      right: var(--quarter-moon-dimensions);
+      background-color: var(--moon-color);
+    }
+  }
 }
