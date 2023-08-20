@@ -12,7 +12,6 @@
   "scope": "/",
   "lang": "en-GB-oed",
   "orientation": "portrait",
-  "iarc_rating_id": "",
   "related_applications": [],
   "prefer_related_applications": false,
   "shortcuts": [
@@ -22,7 +21,6 @@
       "description": "provides the raw JSON of the data used in moon-info."
     }
   ],
-  "protocol_handlers": [],
   "categories": ["education", "science"],
   "icons": [
     {
@@ -46,13 +44,12 @@
       "description": "A screenshot of the home page"
     }
   ],
-  "share_target": {},
   "file_handlers": [],
-  "launch-handler": {
+  "launch_handler": {
     "client_mode": "auto"
   },
-  "handle-links": "preferred",
-  "scope_extentions": [],
+  "handle_links": "preferred",
+  "scope_extensions": [],
 
   "edge_side_panel": {
     "preferred_width": 400
