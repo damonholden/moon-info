@@ -48,8 +48,8 @@
   ],
   "share_target": {},
   "file_handlers": [],
-  "launch-handler": "auto",
-  "handle-links": "preferred",
+  "launch_handler": "auto",
+  "handle_links": "preferred",
   "scope_extentions": [],
 
   "edge_side_panel": {
