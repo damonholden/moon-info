@@ -1,6 +1,16 @@
 import { Controller, Get, Render } from '@nestjs/common';
 import { AppService } from './app.service';
 
+const moonPhaseMap = {
+  'First Quarter': 'first-quarter',
+  'Waxing Gibbous': 'waxing-gibbous',
+  'Full Moon': '',
+  'Waning Gibbous': 'waning-gibbous',
+  'Third Quarter': 'third-quarter',
+  'Waning Crescent': 'waning-crescent',
+  'New Moon': 'new',
+  'Waxing Crescent': 'waxing-crescent',
+};
 export interface MoonQuery {
   lang: string;
   location: string;
@@ -21,7 +31,10 @@ export class AppController {
       moonData += `<li>${data[0].replace(/_/g, ' ')}: ${data[1]}</li>`;
     }
 
-    return { moonData };
+    //  @ts-ignore
+    const phase: string = moonPhaseMap[moonDataRes.phase_name] ?? '';
+
+    return { moonData, phase };
   }
   @Get('moon')
   async getMoon() {
