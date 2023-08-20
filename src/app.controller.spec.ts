@@ -7,6 +7,7 @@ import { CacheModule } from '@nestjs/cache-manager';
 
 describe('AppController', () => {
   let appController: AppController;
+  let appService: AppService;
 
   beforeEach(async () => {
     const app: TestingModule = await Test.createTestingModule({
@@ -16,6 +17,7 @@ describe('AppController', () => {
     }).compile();
 
     appController = app.get<AppController>(AppController);
+    appService = app.get<AppService>(AppService);
   });
 
   describe('root', () => {
@@ -24,6 +26,16 @@ describe('AppController', () => {
     });
 
     it('should return string html of li elements each containing moon data', async () => {
+      jest
+        .spyOn(appService, 'getRapidApiMoonData')
+        .mockImplementation(() =>
+          Promise.resolve(
+            JSON.parse(
+              '{"phase_name": "Waxing Gibbous", "stage": "Gibbous", "days_until_next_full_moon": 5, "days_until_next_new_moon": 19}',
+            ),
+          ),
+        );
+
       const appControllerRes = await appController.root();
 
       expect(appControllerRes.moonData).toMatch(
