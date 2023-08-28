@@ -28,7 +28,10 @@ export class AppController {
     let moonData = '';
 
     for (const data of Object.entries(moonDataRes)) {
-      moonData += `<dt class='font-semibold'>${data[0].replace(/_/g, ' ')}:</dt><dd class='pl-3'>${data[1]}</dd>`;
+      moonData += `<dt class='font-semibold'>${data[0].replace(
+        /_/g,
+        ' ',
+      )}:</dt><dd class='pl-3'>${data[1]}</dd>`;
     }
 
     //  @ts-ignore
