@@ -10,12 +10,16 @@
 	<script defer>navigator.serviceWorker.register("./service-worker.js")</script>
 </head>
 
-<body>
-	<h1>Moon Info</h1>
-	<div class="moon {{phase}}"></div>
-	<ul>
-		{{{moonData}}}
-	</ul>
+<body class='flex flex-col justify-center items-center gap-6 my-6'>
+
+	<h1 class='font-bold text-3xl pb-5'>Today's Moon:</h1>
+	<div class='flex flex-row flex-wrap gap-6 w-full justify-center items-center'>
+		<div class="w-1/3 aspect-square moon {{phase}}"></div>
+		<dl class=''>
+			{{{moonData}}}
+		</dl>
+		</div>
+	</div>
 </body>
 
 </html>

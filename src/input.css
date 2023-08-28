@@ -1,24 +1,30 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
   --main-background-color: #191970;
   --main-text-color: #fff;
   --moon-color: yellow;
   --moon-shadow-color: rgb(5, 2, 48);
-  --moon-dimensions: 100px;
-  --half-moon-dimensions: calc(var(--moon-dimensions) / 2 * -1);
-  --quarter-moon-dimensions: calc(var(--moon-dimensions) / 4 * -1);
 }
 
 body {
   background-color: var(--main-background-color);
   color: var(--main-text-color);
   font-family: monospace;
+  background-image:
+    radial-gradient(white, rgba(255, 255, 255, .2) 2px, transparent 2px),
+    radial-gradient(white, rgba(255, 255, 255, .15) 1px, transparent 3px),
+    radial-gradient(white, rgba(255, 255, 255, .1) 2px, transparent 4px),
+    radial-gradient(rgba(255, 255, 255, .4), rgba(255, 255, 255, .1) 2px, transparent 3px);
+  background-size: 550px 550px, 350px 350px, 250px 250px, 150px 150px;
+  background-position: 0 0, 40px 60px, 130px 270px, 70px 100px;
 }
 
 .moon {
   position: relative;
   border-radius: 50%;
-  width: var(--moon-dimensions);
-  height: var(--moon-dimensions);
   background-color: var(--moon-color);
   overflow: hidden;
 
@@ -28,10 +34,10 @@ body {
     &::after {
       content: ' ';
       position: absolute;
-      border-radius: 50px;
-      height: var(--moon-dimensions);
-      width: var(--moon-dimensions);
-      left: var(--quarter-moon-dimensions);
+      border-radius: 50%;
+      height: 100%;
+      width: 100%;
+      left: -25%;
       background-color: var(--moon-color);
     }
   }
@@ -42,9 +48,9 @@ body {
     &::after {
       content: ' ';
       position: absolute;
-      height: var(--moon-dimensions);
-      width: var(--moon-dimensions);
-      right: var(--half-moon-dimensions);
+      height: 100%;
+      width: 100%;
+      right: -50%;
       background-color: var(--moon-shadow-color);
     }
   }
@@ -55,10 +61,10 @@ body {
     &::after {
       content: ' ';
       position: absolute;
-      border-radius: 50px;
-      height: var(--moon-dimensions);
-      width: var(--moon-dimensions);
-      right: var(--quarter-moon-dimensions);
+      border-radius: 50%;
+      height: 50%;
+      width: 50%;
+      right: -25%;
       background-color: var(--moon-shadow-color);
     }
   }
@@ -70,19 +76,19 @@ body {
   &.waxing-crescent::after {
     content: ' ';
     position: absolute;
-    border-radius: 50px;
-    height: var(--moon-dimensions);
-    width: var(--moon-dimensions);
-    left: var(--quarter-moon-dimensions);
+    border-radius: 50%;
+    height: 100%;
+    width: 100%;
+    left: -25%;
     background-color: var(--moon-shadow-color);
   }
 
   &.first-quarter::after {
     content: ' ';
     position: absolute;
-    height: var(--moon-dimensions);
-    width: var(--moon-dimensions);
-    left: var(--half-moon-dimensions);
+    height: 100%;
+    width: 100%;
+    left: -50%;
     background-color: var(--moon-shadow-color);
   }
 
@@ -92,10 +98,10 @@ body {
     &::after {
       content: ' ';
       position: absolute;
-      border-radius: 50px;
-      height: var(--moon-dimensions);
-      width: var(--moon-dimensions);
-      right: var(--quarter-moon-dimensions);
+      border-radius: 50%;
+      height: 100%;
+      width: 100%;
+      right: -25%;
       background-color: var(--moon-color);
     }
   }
