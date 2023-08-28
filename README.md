@@ -34,6 +34,15 @@ $ npm run start:dev
 $ npm run start:prod
 ```
 
+### Tailwind CSS
+
+This project uses [Tailwind CSS](https://tailwindcss.com/) for styling. To
+instruct tailwind to watch files for class changes during development, run the following command:
+
+```bash
+npm run start:dev:css
+```
+
 ## Test
 
 ```bash
