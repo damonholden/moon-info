@@ -25,7 +25,7 @@ describe('AppController', () => {
       expect(appController.root).toBeDefined();
     });
 
-    it('should return string html of li elements each containing moon data', async () => {
+    it('should return string html of `dt` and `dd` elements each containing moon data', async () => {
       jest
         .spyOn(appService, 'getRapidApiMoonData')
         .mockImplementation(() =>
@@ -39,7 +39,7 @@ describe('AppController', () => {
       const appControllerRes = await appController.root();
 
       expect(appControllerRes.moonData).toMatch(
-        /<li>phase name: [\s\S]+<\/li><li>stage: [\s\S]+<\/li><li>days until next full moon: [\s\S]+<\/li><li>days until next new moon: [\s\S]+<\/li>/,
+      /<dt class='font-semibold'>[\s\S]+:<\/dt><dd class='pl-3'>[\s\S]+<\/dd>/
       );
     });
   });
