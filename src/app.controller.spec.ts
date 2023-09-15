@@ -39,7 +39,7 @@ describe('AppController', () => {
       const appControllerRes = await appController.root();
 
       expect(appControllerRes.moonData).toMatch(
-      /<dt class='font-semibold'>[\s\S]+:<\/dt><dd class='pl-3'>[\s\S]+<\/dd>/
+        /<dt class='font-semibold'>[\s\S]+:<\/dt><dd class='pl-3'>[\s\S]+<\/dd>/,
       );
     });
   });
