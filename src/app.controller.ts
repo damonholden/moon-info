@@ -1,7 +1,7 @@
 import { Controller, Get, Render } from '@nestjs/common';
 import { AppService } from './app.service';
 
-const moonPhaseMap = {
+const moonPhaseMap: { [key: string]: string } = {
   'First Quarter': 'first-quarter',
   'Waxing Gibbous': 'waxing-gibbous',
   'Full Moon': '',
@@ -11,36 +11,33 @@ const moonPhaseMap = {
   'New Moon': 'new',
   'Waxing Crescent': 'waxing-crescent',
 };
-export interface MoonQuery {
-  lang: string;
-  location: string;
-  date: string;
-}
+
 @Controller()
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
   @Get()
   @Render('index')
-  async root() {
-    const moonDataRes = await this.appService.getRapidApiMoonData();
+  async index(): Promise<{ moonDataHtml: string; phase: string }> {
+    const moonDataFetchResponse = await this.appService.fetchMoonData();
 
-    let moonData = '';
+    const moonDataHtml = Object.entries(moonDataFetchResponse).reduce(
+      (prev, curr) => {
+        return `${prev}<dt class='font-semibold'>${curr[0].replace(
+          /_/g,
+          ' ',
+        )}:</dt><dd class='pl-3'>${curr[1]}</dd>`;
+      },
+      '',
+    );
 
-    for (const data of Object.entries(moonDataRes)) {
-      moonData += `<dt class='font-semibold'>${data[0].replace(
-        /_/g,
-        ' ',
-      )}:</dt><dd class='pl-3'>${data[1]}</dd>`;
-    }
+    const phase = moonPhaseMap[moonDataFetchResponse.phase_name];
 
-    //  @ts-ignore
-    const phase: string = moonPhaseMap[moonDataRes.phase_name] ?? '';
-
-    return { moonData, phase };
+    return { moonDataHtml, phase };
   }
-  @Get('moon')
-  async getMoon() {
-    return await this.appService.getRapidApiMoonData();
+
+  @Get('moon-information')
+  async moonInformation(): Promise<moonData> {
+    return await this.appService.fetchMoonData();
   }
 }
