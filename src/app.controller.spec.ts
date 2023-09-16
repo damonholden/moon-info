@@ -22,12 +22,12 @@ describe('AppController', () => {
 
   describe('root', () => {
     it('should exist', () => {
-      expect(appController.root).toBeDefined();
+      expect(appController.index).toBeDefined();
     });
 
     it('should return string html of `dt` and `dd` elements each containing moon data', async () => {
       jest
-        .spyOn(appService, 'getRapidApiMoonData')
+        .spyOn(appService, 'fetchMoonData')
         .mockImplementation(() =>
           Promise.resolve(
             JSON.parse(
@@ -36,10 +36,10 @@ describe('AppController', () => {
           ),
         );
 
-      const appControllerRes = await appController.root();
+      const appControllerRes = await appController.index();
 
-      expect(appControllerRes.moonData).toMatch(
-      /<dt class='font-semibold'>[\s\S]+:<\/dt><dd class='pl-3'>[\s\S]+<\/dd>/
+      expect(appControllerRes.moonDataHtml).toMatch(
+        /<dt class='font-semibold'>[\s\S]+:<\/dt><dd class='pl-3'>[\s\S]+<\/dd>/,
       );
     });
   });
