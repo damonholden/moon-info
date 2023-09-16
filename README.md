@@ -23,31 +23,33 @@ npm install
 
 ## Running the app
 
+### Development
+
+During development, run the following commands in separate terminals:
+
 ```bash
-# development
-npm run start
-
-# watch mode
-npm run start:dev
-
-# production mode
-npm run start:prod
+# instruct tailwind to watch files for class changes during development
+npm run start:css
 ```
 
-### Tailwind CSS
+```bash
+npm start
+```
 
-This project uses [Tailwind CSS](https://tailwindcss.com/) for styling. To
-instruct tailwind to watch files for class changes during development, run the following command:
+### Production
+
+To run the app in production mode, run the following commands:
 
 ```bash
-npm run start:dev:css
+npm run build
+npm run start:prod
 ```
 
 ## Test
 
 ```bash
 # unit tests
-npm run test
+npm test
 
 # e2e tests
 npm run test:e2e
