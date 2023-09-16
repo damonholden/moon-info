@@ -4,11 +4,11 @@ This is a simple web-app that shows the current phase of the moon.
 
 ## Description
 
-Built starting from the [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+Built from the [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
 ## API used
 
-The moon data for this app was sourced from [The Moon Phase API from RapidAPI's
+The moon data for this app is sourced from [The Moon Phase API from RapidAPI's
 library.](https://rapidapi.com/MoonAPIcom/api/moon-phase)
 
 ## Live Deployment
