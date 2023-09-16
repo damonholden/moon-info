@@ -77,8 +77,8 @@ body {
       content: ' ';
       position: absolute;
       border-radius: 50%;
-      height: 50%;
-      width: 50%;
+      height: 100%;
+      width: 100%;
       right: -25%;
       background-color: var(--moon-shadow-color);
     }
